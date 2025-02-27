@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Magical Forest Adventure</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #e0ffe0;
+      color: #004d00;
+      padding: 20px;
+    }
+    #story {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .choice {
+      display: block;
+      margin: 10px 0;
+      padding: 10px;
+      background-color: #d0ffd0;
+      border: 1px solid #90ee90;
+      border-radius: 5px;
+      cursor: pointer;
+      width: fit-content;
+    }
+    .choice:hover {
+      background-color: #b3ffb3;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #90ee90;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #76c776;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🌟 Magical Forest Adventure 🌟</h1>
+<div id="story"></div>
+<div id="choices"></div>
+
+<script>
+  // Define the game scenes
+  const scenes = {
+    start: {
+      text: 'You find yourself at the entrance of a beautiful magical forest. The trees sparkle with fairy lights, and you hear gentle music in the air.',
+      choices: [
+        { text: 'Enter the forest', nextScene: 'forestEntrance' },
+        { text: 'Walk along the forest edge', nextScene: 'forestEdge' },
+        { text: 'Sit and have a picnic', nextScene: 'picnic' }
+      ]
+    },
+    forestEntrance: {
+      text: 'Stepping inside, a friendly fairy appears and offers to guide you.',
+      choices: [
+        { text: 'Follow the fairy', nextScene: 'fairyGuide' },
+        { text: 'Explore on your own', nextScene: 'exploreAlone' },
+        { text: 'Ask for a magical gift', nextScene: 'magicalGift' }
+      ]
+    },
+    forestEdge: {
+      text: 'Walking along the edge, you discover a hidden path leading to a sparkling pond.',
+      choices: [
+        { text: 'Follow the path', nextScene: 'sparklingPond' },
+        { text: 'Continue along the edge', nextScene: 'meetUnicorn' },
+        { text: 'Return to the entrance', nextScene: 'start' }
+      ]
+    },
+    picnic: {
+      text: 'You lay out a picnic and enjoy delicious treats when some talking animals join you.',
+      choices: [
+        { text: 'Share your food', nextScene: 'animalFriends' },
+        { text: 'Tell a funny story', nextScene: 'storyTime' },
+        { text: 'Invite them to play', nextScene: 'playGames' }
+      ]
+    },
+    fairyGuide: {
+      text: 'The fairy leads you to a tree with doors of different colors. Each door holds a surprise.',
+      choices: [
+        { text: 'Open the red door', nextScene: 'redDoor' },
+        { text: 'Open the blue door', nextScene: 'blueDoor' },
+        { text: 'Open the yellow door', nextScene: 'yellowDoor' }
+      ]
+    },
+    exploreAlone: {
+      text: 'You wander deeper and find a field of giant, giggling mushrooms.',
+      choices: [
+        { text: 'Bounce on the mushrooms', nextScene: 'bounceMushrooms' },
+        { text: 'Sing with the mushrooms', nextScene: 'singMushrooms' },
+        { text: 'Pick a mushroom hat', nextScene: 'mushroomHat' }
+      ]
+    },
+    magicalGift: {
+      text: 'The fairy hands you a glowing flower that grants one wish.',
+      choices: [
+        { text: 'Wish to fly', nextScene: 'fly' },
+        { text: 'Wish for a new friend', nextScene: 'newFriend' },
+        { text: 'Save the wish for later', nextScene: 'saveWish' }
+      ]
+    },
+    // Additional Scenes
+    sparklingPond: {
+      text: 'At the pond, a talking fish offers you a pearl of wisdom.',
+      choices: [
+        { text: 'Accept the pearl', nextScene: 'acceptPearl' },
+        { text: 'Play with the fish', nextScene: 'playFish' },
+        { text: 'Make a wish', nextScene: 'pondWish' }
+      ]
+    },
+    meetUnicorn: {
+      text: 'A majestic unicorn appears and invites you for a magical ride.',
+      choices: [
+        { text: 'Ride the unicorn', nextScene: 'unicornRide' },
+        { text: 'Sing with the unicorn', nextScene: 'singUnicorn' },
+        { text: 'Tell the unicorn a secret', nextScene: 'secretUnicorn' }
+      ]
+    },
+    animalFriends: {
+      text: 'The animals become your friends and invite you to their magical treehouse.',
+      choices: []
+    },
+    storyTime: {
+      text: 'Your stories make everyone laugh, and they share theirs too. It’s a joyful time!',
+      choices: []
+    },
+    playGames: {
+      text: 'You all play hide and seek among the trees, laughter filling the air.',
+      choices: []
+    },
+    // Endings and Singular Scenes
+    redDoor: {
+      text: 'You find a room filled with dancing ladybugs! They invite you to join their dance.',
+      choices: []
+    },
+    blueDoor: {
+      text: 'You enter a sky-blue room and float amongst fluffy clouds. It feels like a dream!',
+      choices: []
+    },
+    yellowDoor: {
+      text: 'A room of golden light surrounds you with warmth and happiness. You feel wonderful!',
+      choices: []
+    },
+    bounceMushrooms: {
+      text: 'Bouncing high, you reach the treetops and see the whole magical world around you.',
+      choices: []
+    },
+    singMushrooms: {
+      text: 'The mushrooms teach you a happy song that echoes through the forest.',
+      choices: []
+    },
+    mushroomHat: {
+      text: 'Wearing a mushroom hat, you feel like part of the forest family!',
+      choices: []
+    },
+    fly: {
+      text: 'You soar above the trees like a bird, feeling the wind in your hair. What a thrill!',
+      choices: []
+    },
+    newFriend: {
+      text: 'A giggling sprite appears, becoming your new best friend in the forest.',
+      choices: []
+    },
+    saveWish: {
+      text: 'You tuck the flower safely away, knowing you can make a wish anytime.',
+      choices: []
+    },
+    acceptPearl: {
+      text: 'The pearl shares its wisdom, and you feel wise beyond your years.',
+      choices: []
+    },
+    playFish: {
+      text: 'You splash and play games with the fish, creating magical memories.',
+      choices: []
+    },
+    pondWish: {
+      text: 'You make a wish upon the pond, and the water sparkles with magic.',
+      choices: []
+    },
+    unicornRide: {
+      text: 'Riding the unicorn, you travel over rainbows and through clouds. Unforgettable!',
+      choices: []
+    },
+    singUnicorn: {
+      text: 'You and the unicorn sing songs that make flowers bloom all around.',
+      choices: []
+    },
+    secretUnicorn: {
+      text: 'Sharing a secret, the unicorn gifts you a shimmering unicorn feather.',
+      choices: []
+    }
+  };
+
+  // Initialize game variables
+  let currentScene = 'start';
+
+  // Function to display the current scene
+  function showScene(sceneName) {
+    const scene = scenes[sceneName];
+    currentScene = sceneName;
+
+    // Display the scene text
+    document.getElementById('story').innerText = scene.text;
+
+    // Display the choices
+    const choicesDiv = document.getElementById('choices');
+    choicesDiv.innerHTML = '';
+
+    if (scene.choices.length === 0) {
+      // End of the story
+      const endMessage = document.createElement('div');
+      endMessage.innerText = '✨ The End ✨';
+      endMessage.style.fontSize = '1.5em';
+      endMessage.style.marginBottom = '20px';
+      choicesDiv.appendChild(endMessage);
+
+      const restartButton = document.createElement('button');
+      restartButton.innerText = 'Play Again';
+      restartButton.onclick = function() {
+        showScene('start');
+      };
+      choicesDiv.appendChild(restartButton);
+    } else {
+      scene.choices.forEach(function(choice) {
+        const choiceButton = document.createElement('div');
+        choiceButton.className = 'choice';
+        choiceButton.innerText = choice.text;
+        choiceButton.onclick = function() {
+          showScene(choice.nextScene);
+        };
+        choicesDiv.appendChild(choiceButton);
+      });
+    }
+  }
+
+  // Start the game
+  showScene(currentScene);
+</script>
+
+</body>
+</html>
